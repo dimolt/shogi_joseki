@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v4
 
       - name: Set up Python 3.12
         run: uv python install 3.12
@@ -27,5 +27,5 @@ jobs:
       - name: Sync changed files to Dropbox
         env:
           DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          DROPBOX_ROOT: 将棋/定跡
+          DROPBOX_ROOT: 将棋\定跡
         run: uv run --python 3.12 python .github/scripts/sync_to_dropbox.py --ref HEAD~1..HEAD --dropbox-root "$DROPBOX_ROOT"
